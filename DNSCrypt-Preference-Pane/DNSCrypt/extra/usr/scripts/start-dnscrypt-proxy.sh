@@ -43,7 +43,7 @@ try_resolver() {
         logger_debug "Proxy for [$description] is up"
         prefix=($(eval echo "{a..m}"))
         answers=$(exec dig +time=1 +short +tries=2 -p $priority \
-          @"$INTERFACE_PROBES" ${prefix[$[ RANDOM % 12 ]]]}.root-servers.net). 2> /dev/null | \
+          @"$INTERFACE_PROBES" ${prefix[$[ RANDOM % 12 ]]]}.root-servers.net. 2> /dev/null | \
           egrep -ic '^[0-9.:]+$')
         [ -r "$pid_file" ] && kill $(cat -- "$pid_file")
         if [ $answers -gt 0 ]; then
